@@ -1,64 +1,127 @@
-# QML Stock Predictor
+# Quantum-ML Hybrid Portfolio Optimization System
 
-A **Quantum Machine Learning (QML)** based stock price prediction system that combines quantum computing principles with classical machine learning to forecast NSE (National Stock Exchange) stock prices.
+A **Quantum Machine Learning (QML)** hybrid system that combines Qiskit's **QAOA/VQE quantum algorithms** with **TensorFlow deep learning** to optimize and diversify NSE stock portfolios.
 
-##  What It Does
+## What It Does
 
-This project implements a **hybrid quantum-classical model** that:
+This project implements a **production-grade quantum-classical hybrid system** that:
 
--  **Fetches real stock data** from NSE using Yahoo Finance API
--  **Calculates technical indicators** (RSI, MACD, Bollinger Bands, Moving Averages, etc.)
--  **Uses quantum circuits** for feature processing with variational quantum algorithms
--  **Combines quantum and classical layers** for hybrid machine learning
--  **Predicts future stock prices** with comprehensive performance metrics
--  **Provides detailed visualizations** of predictions vs actual prices
+### Quantum Optimization Layer
+- **QAOA (Quantum Approximate Optimization Algorithm)** for combinatorial asset selection
+- **VQE (Variational Quantum Eigensolver)** for continuous portfolio weight optimization  
+- **Quantum circuits** with parameterized gates for portfolio optimization problems
+- **Fallback mechanisms** to classical optimization when quantum fails
+
+### Machine Learning Integration
+- **Enhanced LSTM networks** with attention mechanisms for return prediction
+- **TensorFlow deep learning** models for market regime detection
+- **Multi-scale feature processing** with technical indicators
+- **Time series forecasting** for portfolio rebalancing signals
+
+### Risk Management & Stress Testing
+- **Monte Carlo simulations** (10,000+ scenarios) for comprehensive stress testing
+- **Multiple market regimes**: Normal (70%), Bear (20%), Crisis (10%) scenarios
+- **Advanced risk metrics**: VaR, CVaR, Maximum Drawdown, Sharpe ratios
+- **Stress test reporting** with probability distributions and tail risk analysis
 
 
-## Installation
+
+## Project Structure
+
+The system is now organized into modular components for better maintainability:
+
+```
+quantum-portfolio-optimizer/
+├── main.py                    # Main entry point
+├── config.py                  # Configuration classes and management
+├── data_models.py             # Data containers and models
+├── exceptions.py              # Custom exception classes
+├── data_fetcher.py            # NSE data fetching and preprocessing
+├── quantum_optimization.py    # Quantum algorithms (QAOA/VQE)
+├── ml_predictor.py           # LSTM with attention mechanism
+├── risk_analysis.py          # Risk metrics and Monte Carlo testing
+├── baseline_comparator.py    # Baseline portfolio strategies
+├── portfolio_optimizer.py   # Main orchestration class
+├── test_integration.py       # Integration tests
+└── README.md                 # This file
+```
+
+##  Installation
 
 ```bash
-# Install required packages
-pip install pennylane yfinance pandas numpy scikit-learn matplotlib seaborn
+# Create virtual environment
+python -m venv qiskit_env
+source qiskit_env/bin/activate  # On Windows: qiskit_env\Scripts\activate
 
-# Clone or download the script
-# Run the main function
-python qml_stock_predictor.py
+# Install quantum computing packages
+pip install qiskit qiskit-algorithms qiskit-optimization
+
+# Install machine learning packages
+pip install tensorflow pandas numpy scikit-learn
+
+# Install data and visualization packages
+pip install yfinance matplotlib seaborn plotly cvxpy scipy
+
+# Run the system
+python main.py
 ```
 
-## Quick Start
+##  Quick Start
 
 ```python
-# Basic usage
-python qml_stock_predictor.py
+# Run the complete quantum-ML optimization system
+python main.py
 
-# The script will:
-# 1. Fetch RELIANCE stock data from 2020-2024
-# 2. Calculate technical indicators
-# 3. Train quantum model for 30 epochs
-# 4. Show predictions and performance metrics
-# 5. Generate comprehensive visualizations
+# The system will:
+# 1. Fetch NSE stock data (RELIANCE, TCS, HDFCBANK, etc.)
+# 2. Run QAOA for quantum asset selection
+# 3. Use VQE for optimal weight determination
+# 4. Execute Monte Carlo stress testing (10,000+ scenarios)
+# 5. Compare performance vs classical baselines
+# 6. Generate comprehensive performance reports
 ```
 
-## Configuration
+##  System Architecture
 
-### Stock Selection
+### 1. Main Portfolio Optimizer
 ```python
-symbol = "RELIANCE"  # Change to any NSE stock
-# Examples: "TCS", "INFY", "HDFCBANK", "ICICIBANK", "SBIN"
+from portfolio_optimizer import QuantumMLPortfolioOptimizer
+
+# Initialize the system
+optimizer = QuantumMLPortfolioOptimizer()
+
+# Run complete optimization pipeline
+result = optimizer.run_integrated_optimization_pipeline()
 ```
 
-### Model Parameters
+### 2. Quantum Asset Selection
 ```python
-n_qubits = 6        # Number of quantum qubits (2-8 recommended)
-n_layers = 4        # Quantum circuit depth (3-6 recommended)  
-epochs = 30         # Training epochs (20-100 recommended)
-learning_rate = 0.01 # Learning rate (0.001-0.1 recommended)
+from quantum_optimization import QuantumAssetSelector
+from config import QuantumConfig
+
+# QAOA for asset selection
+selector = QuantumAssetSelector(QuantumConfig())
+selected_assets, probs = selector.run_qaoa_optimization(returns_data)
 ```
 
-### Date Range
+### 3.LSTM Predictor
 ```python
-start_date = datetime(2020, 1, 1)  # Training start date
-end_date = datetime(2024, 1, 1)    # Training end date
+from ml_predictor import EnhancedLSTMPredictor
+from config import MLConfig
+
+# LSTM with attention mechanism
+predictor = EnhancedLSTMPredictor(MLConfig())
+history = predictor.train(returns_data)
+predictions = predictor.predict(recent_data)
 ```
 
+### 4. Monte Carlo Stress Testing
+```python
+from risk_analysis import MonteCarloStressTester
+from config import MonteCarloConfig
+
+# Comprehensive stress testing
+tester = MonteCarloStressTester(MonteCarloConfig())
+results = tester.stress_test_portfolio(assets, weights, returns_data)
+```
 
